@@ -152,12 +152,19 @@ void question2() {
 	int nb_degrees = 10;
 	int set_sizes[] = {16,32,64,128,256};
 	int nb_sizes = 5;
+	int nb_runs = 250;
+	scalar_t error;
 
 	ofstream out("/tmp/question2.dat");
 	for(int d = 0; d <= nb_degrees; d++){
 		//printf("Degree: %i", d);
 		for(int s = 0; s < nb_sizes; s++){
-			scalar_t error = test_error(d, set_sizes[s], 1000);
+			error = 0;  // init
+			for(int r = 0; r < nb_runs; r++){
+				error += test_error(d, set_sizes[s], 1000);
+			}
+			error = error / scalar_t(nb_runs);
+			//scalar_t error = test_error(d, set_sizes[s], 1000);
 			// printf("Error: %4.2f\n", error);
 			out << set_sizes[s] << " " << d << " " << error << endl;
 		}
