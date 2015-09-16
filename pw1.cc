@@ -29,6 +29,46 @@ using namespace std;
 #include "sq_matrix.h"
 #include "polynomial_regressor.h"
 
+scalar_t test_error(int degree, 
+										int nb_train_samples, 
+										int nb_test_samples)
+{
+ 	scalar_t *x_train = new scalar_t[nb_train_samples];
+	scalar_t *y_train = new scalar_t[nb_train_samples];
+	scalar_t error_avgquad = 0;
+	scalar_t y_test;
+
+  for(int k = 0; k < nb_train_samples; k++){
+  	x_train[k] = random_0_to_1();
+  if (x_train[k] < 0.5){
+  	y_train[k] = 0;
+  } 
+	else {
+  	y_train[k] = 1;
+  }
+	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
+  }
+
+	PolynomialRegressor regressor(degree);
+	regressor.fit(nb_train_samples, x_train, y_train);
+
+	for(int s = 0; s < nb_test_samples; s++) {
+		scalar_t x_test = scalar_t(s) / scalar_t(nb_test_samples);
+		if (x_test < 0.5){
+			scalar_t y_test = 0;
+		}
+		else {
+			scalar_t y_test = 1;
+		}
+		scalar_t y_hat = regressor.eval(x_test);
+		error_avgquad += (y_test - y_hat) * (y_test - y_hat);
+	}
+	error_avgquad = error_avgquad / scalar_t(nb_test_samples);
+
+  delete[] x_train;
+  delete[] y_train;
+}
+
 void example() {
   int degree = 4;
   int nb_train_samples = 100;
@@ -77,16 +117,6 @@ void question1() {
 
 //	printf(nb_train_samples)
 
-  for(int k = 0; k < nb_train_samples; k++){
-  	x_train[k] = random_0_to_1();
-  if (x_train[k] < 0.5){
-  	y_train[k] = 0;
-  } 
-	else {
-  	y_train[k] = 1;
-  }
-	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
-  }	
 
 	ofstream out_train("/tmp/question1_train.dat");
 	ofstream out("/tmp/question1.dat");
