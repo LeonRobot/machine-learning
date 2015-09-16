@@ -66,11 +66,11 @@ void example() {
 }
 
 void question1() {
-	// printf("Hello World!\n");
-	
-	int degree = 4;
+	//int degree = 2;
  	int nb_train_samples = 100;
 	int nb_test_values = 1000;
+	int nb_degrees = 7;
+	int degrees[] = {0,1,2,4,8,16,32};
 
  	scalar_t *x_train = new scalar_t[nb_train_samples];
 	scalar_t *y_train = new scalar_t[nb_train_samples];
@@ -88,21 +88,25 @@ void question1() {
 	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
   }	
 
-  PolynomialRegressor regressor(degree);
-  regressor.fit(nb_train_samples, x_train, y_train);
+	ofstream out_train("/tmp/question1_train.dat");
+	ofstream out("/tmp/question1.dat");
 
-  ofstream out_train("/tmp/question1_train.dat");
+	for (int d = 0; d < nb_degrees; d++){
+		int degree = degrees[d];
 
-  for(int s = 0; s < nb_train_samples; s++) {
-    out_train << x_train[s] << " " << y_train[s] << endl;
-  }
+		PolynomialRegressor regressor(degree);
+		regressor.fit(nb_train_samples, x_train, y_train);
 
-  ofstream out("/tmp/question1.dat");
-
-  for(int s = 0; s < nb_test_values; s++) {
-    scalar_t x = scalar_t(s) / scalar_t(nb_test_values);
-		out << degree << " " << x << regressor.eval(x) << endl;
-  }
+		for(int s = 0; s < nb_train_samples; s++) {
+			out_train << x_train[s] << " " << y_train[s] << endl;
+		}
+		
+		printf("Degree: %i\n", degree);
+		for(int s = 0; s < nb_test_values; s++) {
+			scalar_t x = scalar_t(s) / scalar_t(nb_test_values);
+			out << degree << " " << x << " " << regressor.eval(x) << endl;
+		}
+	}
 
   delete[] x_train;
   delete[] y_train;
