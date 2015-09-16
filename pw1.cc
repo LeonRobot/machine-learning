@@ -156,9 +156,9 @@ void question2() {
 	scalar_t error;
 
 	ofstream out("/tmp/question2.dat");
-	for(int d = 0; d <= nb_degrees; d++){
+	for(int s = 0; s < nb_sizes; s++){
+		for(int d = 0; d <= nb_degrees; d++){
 		//printf("Degree: %i", d);
-		for(int s = 0; s < nb_sizes; s++){
 			error = 0;  // init
 			for(int r = 0; r < nb_runs; r++){
 				error += test_error(d, set_sizes[s], 1000);
