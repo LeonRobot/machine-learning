@@ -54,19 +54,25 @@ scalar_t test_error(int degree,
 
 	for(int s = 0; s < nb_test_samples; s++) {
 		scalar_t x_test = scalar_t(s) / scalar_t(nb_test_samples);
+
 		if (x_test < 0.5){
-			scalar_t y_test = 0;
+			// printf("X test: %4.2f\n", x_test);
+			y_test = 0;
+			// printf("Y test: %4.2f\n", y_test);
 		}
 		else {
-			scalar_t y_test = 1;
+			y_test = 1;
 		}
 		scalar_t y_hat = regressor.eval(x_test);
 		error_avgquad += (y_test - y_hat) * (y_test - y_hat);
 	}
+	// printf("Error in function: %4.2f", error_avgquad);
 	error_avgquad = error_avgquad / scalar_t(nb_test_samples);
 
   delete[] x_train;
   delete[] y_train;
+
+	return error_avgquad;
 }
 
 void example() {
@@ -143,6 +149,19 @@ void question1() {
 }
 
 void question2() {
+	int nb_degrees = 10;
+	int set_sizes[] = {16,32,64,128,256};
+	int nb_sizes = 5;
+
+	ofstream out("/tmp/question2.dat");
+	for(int d = 0; d <= nb_degrees; d++){
+		//printf("Degree: %i", d);
+		for(int s = 0; s < nb_sizes; s++){
+			scalar_t error = test_error(d, set_sizes[s], 1000);
+			// printf("Error: %4.2f\n", error);
+			out << set_sizes[s] << " " << d << " " << error << endl;
+		}
+	}
 }
 
 void question3() {
