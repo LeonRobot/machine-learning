@@ -34,7 +34,8 @@ pw1: \
 	sq_matrix.o \
 	functional_regressor.o \
 	polynomial_regressor.o \
-	pw1.o
+	hinge_regressor.o\
+	pw1.o 
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 Makefile.depend: *.h *.cc Makefile
