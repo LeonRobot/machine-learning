@@ -24,11 +24,12 @@ HingeRegressor::HingeRegressor(int nb_hinges, scalar_t xmin, scalar_t xmax) {
 	scalar_t posi = 0;
 
  _nb_hinges	= nb_hinges;
+ 	scalar_t *_hinge_positions = new scalar_t[nb_hinges];
 
  interval = (xmax - xmin) / (nb_hinges + 1);
 
  for(int h = 0; h < nb_hinges; h++){
-	 posi += interval;
+   posi += interval;
 	 _hinge_positions[h] = posi;
  }
 }

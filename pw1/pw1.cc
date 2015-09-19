@@ -190,8 +190,8 @@ void question3() {
 //	HingeRegressor regressor(n_hinges);
 //	v = regressor.value_basis_function(n_hinges, x);
 //	printf("Value basis function: $4.2f\n", v);
-  // HingeRegressor regressor(n_hinges, x_min, x_max);
-	HingeRegressor regressor(n_hinges);
+  HingeRegressor regressor(n_hinges, x_min, x_max);
+	// HingeRegressor regressor(n_hinges);
 	// PolynomialRegressor regressor(n_hinges);
 }
 
