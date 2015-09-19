@@ -29,52 +29,6 @@ using namespace std;
 #include "sq_matrix.h"
 #include "polynomial_regressor.h"
 
-scalar_t test_error(int degree, 
-										int nb_train_samples, 
-										int nb_test_samples)
-{
- 	scalar_t *x_train = new scalar_t[nb_train_samples];
-	scalar_t *y_train = new scalar_t[nb_train_samples];
-	scalar_t error_avgquad = 0;
-	scalar_t y_test;
-
-  for(int k = 0; k < nb_train_samples; k++){
-  	x_train[k] = random_0_to_1();
-  if (x_train[k] < 0.5){
-  	y_train[k] = 0;
-  } 
-	else {
-  	y_train[k] = 1;
-  }
-	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
-  }
-
-	PolynomialRegressor regressor(degree);
-	regressor.fit(nb_train_samples, x_train, y_train);
-
-	for(int s = 0; s < nb_test_samples; s++) {
-		scalar_t x_test = scalar_t(s) / scalar_t(nb_test_samples);
-
-		if (x_test < 0.5){
-			// printf("X test: %4.2f\n", x_test);
-			y_test = 0;
-			// printf("Y test: %4.2f\n", y_test);
-		}
-		else {
-			y_test = 1;
-		}
-		scalar_t y_hat = regressor.eval(x_test);
-		error_avgquad += (y_test - y_hat) * (y_test - y_hat);
-	}
-	// printf("Error in function: %4.2f", error_avgquad);
-	error_avgquad = error_avgquad / scalar_t(nb_test_samples);
-
-  delete[] x_train;
-  delete[] y_train;
-
-	return error_avgquad;
-}
-
 void example() {
   int degree = 4;
   int nb_train_samples = 100;
@@ -123,9 +77,23 @@ void question1() {
 
 //	printf(nb_train_samples)
 
+  for(int k = 0; k < nb_train_samples; k++){
+  	x_train[k] = random_0_to_1();
+  if (x_train[k] < 0.5){
+  	y_train[k] = 0;
+  } 
+	else {
+  	y_train[k] = 1;
+  }
+	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
+  }	
 
 	ofstream out_train("/tmp/question1_train.dat");
 	ofstream out("/tmp/question1.dat");
+
+	for(int s = 0; s < nb_train_samples; s++) {
+		out_train << x_train[s] << " " << y_train[s] << endl;
+	}
 
 	for (int d = 0; d < nb_degrees; d++){
 		int degree = degrees[d];
@@ -133,9 +101,6 @@ void question1() {
 		PolynomialRegressor regressor(degree);
 		regressor.fit(nb_train_samples, x_train, y_train);
 
-		for(int s = 0; s < nb_train_samples; s++) {
-			out_train << x_train[s] << " " << y_train[s] << endl;
-		}
 		
 		printf("Degree: %i\n", degree);
 		for(int s = 0; s < nb_test_values; s++) {
@@ -149,26 +114,6 @@ void question1() {
 }
 
 void question2() {
-	int nb_degrees = 10;
-	int set_sizes[] = {16,32,64,128,256};
-	int nb_sizes = 5;
-	int nb_runs = 250;
-	scalar_t error;
-
-	ofstream out("/tmp/question2.dat");
-	for(int s = 0; s < nb_sizes; s++){
-		for(int d = 0; d <= nb_degrees; d++){
-		//printf("Degree: %i", d);
-			error = 0;  // init
-			for(int r = 0; r < nb_runs; r++){
-				error += test_error(d, set_sizes[s], 1000);
-			}
-			error = error / scalar_t(nb_runs);
-			//scalar_t error = test_error(d, set_sizes[s], 1000);
-			// printf("Error: %4.2f\n", error);
-			out << set_sizes[s] << " " << d << " " << error << endl;
-		}
-	}
 }
 
 void question3() {
