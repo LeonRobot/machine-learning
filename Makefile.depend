@@ -1,0 +1,146 @@
+functional_regressor.o: functional_regressor.cc \
+ /software/include/stdc-predef.h functional_regressor.h misc.h \
+ /software/include/stdlib.h /software/include/features.h \
+ /software/include/sys/cdefs.h /software/include/bits/wordsize.h \
+ /software/include/gnu/stubs.h /software/include/gnu/stubs-64.h \
+ /software/lib/gcc/x86_64-redhat-linux/4.9.1/include/stddef.h \
+ /software/include/bits/waitflags.h /software/include/bits/waitstatus.h \
+ /software/include/endian.h /software/include/bits/endian.h \
+ /software/include/bits/byteswap.h /software/include/bits/types.h \
+ /software/include/bits/typesizes.h /software/include/bits/byteswap-16.h \
+ /software/include/xlocale.h /software/include/sys/types.h \
+ /software/include/time.h /software/include/sys/select.h \
+ /software/include/bits/select.h /software/include/bits/sigset.h \
+ /software/include/bits/time.h /software/include/sys/sysmacros.h \
+ /software/include/bits/pthreadtypes.h /software/include/alloca.h \
+ /software/include/bits/stdlib-float.h sq_matrix.h
+polynomial_regressor.o: polynomial_regressor.cc \
+ /software/include/stdc-predef.h polynomial_regressor.h misc.h \
+ /software/include/stdlib.h /software/include/features.h \
+ /software/include/sys/cdefs.h /software/include/bits/wordsize.h \
+ /software/include/gnu/stubs.h /software/include/gnu/stubs-64.h \
+ /software/lib/gcc/x86_64-redhat-linux/4.9.1/include/stddef.h \
+ /software/include/bits/waitflags.h /software/include/bits/waitstatus.h \
+ /software/include/endian.h /software/include/bits/endian.h \
+ /software/include/bits/byteswap.h /software/include/bits/types.h \
+ /software/include/bits/typesizes.h /software/include/bits/byteswap-16.h \
+ /software/include/xlocale.h /software/include/sys/types.h \
+ /software/include/time.h /software/include/sys/select.h \
+ /software/include/bits/select.h /software/include/bits/sigset.h \
+ /software/include/bits/time.h /software/include/sys/sysmacros.h \
+ /software/include/bits/pthreadtypes.h /software/include/alloca.h \
+ /software/include/bits/stdlib-float.h functional_regressor.h
+pw1.o: pw1.cc /software/include/stdc-predef.h \
+ /software/include/c++/4.9.1/iostream \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/c++config.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/os_defines.h \
+ /software/include/features.h /software/include/sys/cdefs.h \
+ /software/include/bits/wordsize.h /software/include/gnu/stubs.h \
+ /software/include/gnu/stubs-64.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/cpu_defines.h \
+ /software/include/c++/4.9.1/ostream /software/include/c++/4.9.1/ios \
+ /software/include/c++/4.9.1/iosfwd \
+ /software/include/c++/4.9.1/bits/stringfwd.h \
+ /software/include/c++/4.9.1/bits/memoryfwd.h \
+ /software/include/c++/4.9.1/bits/postypes.h \
+ /software/include/c++/4.9.1/cwchar /software/include/wchar.h \
+ /software/include/stdio.h \
+ /software/lib/gcc/x86_64-redhat-linux/4.9.1/include/stdarg.h \
+ /software/include/bits/wchar.h \
+ /software/lib/gcc/x86_64-redhat-linux/4.9.1/include/stddef.h \
+ /software/include/xlocale.h /software/include/c++/4.9.1/exception \
+ /software/include/c++/4.9.1/bits/atomic_lockfree_defines.h \
+ /software/include/c++/4.9.1/bits/char_traits.h \
+ /software/include/c++/4.9.1/bits/stl_algobase.h \
+ /software/include/c++/4.9.1/bits/functexcept.h \
+ /software/include/c++/4.9.1/bits/exception_defines.h \
+ /software/include/c++/4.9.1/bits/cpp_type_traits.h \
+ /software/include/c++/4.9.1/ext/type_traits.h \
+ /software/include/c++/4.9.1/ext/numeric_traits.h \
+ /software/include/c++/4.9.1/bits/stl_pair.h \
+ /software/include/c++/4.9.1/bits/move.h \
+ /software/include/c++/4.9.1/bits/concept_check.h \
+ /software/include/c++/4.9.1/bits/stl_iterator_base_types.h \
+ /software/include/c++/4.9.1/bits/stl_iterator_base_funcs.h \
+ /software/include/c++/4.9.1/debug/debug.h \
+ /software/include/c++/4.9.1/bits/stl_iterator.h \
+ /software/include/c++/4.9.1/bits/ptr_traits.h \
+ /software/include/c++/4.9.1/bits/predefined_ops.h \
+ /software/include/c++/4.9.1/bits/localefwd.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/c++locale.h \
+ /software/include/c++/4.9.1/clocale /software/include/locale.h \
+ /software/include/bits/locale.h /software/include/c++/4.9.1/cctype \
+ /software/include/ctype.h /software/include/bits/types.h \
+ /software/include/bits/typesizes.h /software/include/endian.h \
+ /software/include/bits/endian.h /software/include/bits/byteswap.h \
+ /software/include/bits/byteswap-16.h \
+ /software/include/c++/4.9.1/bits/ios_base.h \
+ /software/include/c++/4.9.1/ext/atomicity.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/gthr.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/gthr-default.h \
+ /software/include/pthread.h /software/include/sched.h \
+ /software/include/time.h /software/include/bits/sched.h \
+ /software/include/bits/time.h /software/include/bits/timex.h \
+ /software/include/bits/pthreadtypes.h /software/include/bits/setjmp.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/atomic_word.h \
+ /software/include/c++/4.9.1/bits/locale_classes.h \
+ /software/include/c++/4.9.1/string \
+ /software/include/c++/4.9.1/bits/allocator.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/c++allocator.h \
+ /software/include/c++/4.9.1/ext/new_allocator.h \
+ /software/include/c++/4.9.1/new \
+ /software/include/c++/4.9.1/bits/ostream_insert.h \
+ /software/include/c++/4.9.1/bits/cxxabi_forced.h \
+ /software/include/c++/4.9.1/bits/stl_function.h \
+ /software/include/c++/4.9.1/backward/binders.h \
+ /software/include/c++/4.9.1/bits/range_access.h \
+ /software/include/c++/4.9.1/bits/basic_string.h \
+ /software/include/c++/4.9.1/bits/basic_string.tcc \
+ /software/include/c++/4.9.1/bits/locale_classes.tcc \
+ /software/include/c++/4.9.1/streambuf \
+ /software/include/c++/4.9.1/bits/streambuf.tcc \
+ /software/include/c++/4.9.1/bits/basic_ios.h \
+ /software/include/c++/4.9.1/bits/locale_facets.h \
+ /software/include/c++/4.9.1/cwctype /software/include/wctype.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/ctype_base.h \
+ /software/include/c++/4.9.1/bits/streambuf_iterator.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/ctype_inline.h \
+ /software/include/c++/4.9.1/bits/locale_facets.tcc \
+ /software/include/c++/4.9.1/bits/basic_ios.tcc \
+ /software/include/c++/4.9.1/bits/ostream.tcc \
+ /software/include/c++/4.9.1/istream \
+ /software/include/c++/4.9.1/bits/istream.tcc \
+ /software/include/c++/4.9.1/fstream \
+ /software/include/c++/4.9.1/bits/codecvt.h \
+ /software/include/c++/4.9.1/cstdio /software/include/libio.h \
+ /software/include/_G_config.h /software/include/bits/stdio_lim.h \
+ /software/include/bits/sys_errlist.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/basic_file.h \
+ /software/include/c++/4.9.1/x86_64-redhat-linux/bits/c++io.h \
+ /software/include/c++/4.9.1/bits/fstream.tcc \
+ /software/include/c++/4.9.1/cmath /software/include/math.h \
+ /software/include/bits/huge_val.h /software/include/bits/huge_valf.h \
+ /software/include/bits/huge_vall.h /software/include/bits/inf.h \
+ /software/include/bits/nan.h /software/include/bits/mathdef.h \
+ /software/include/bits/mathcalls.h /software/include/stdlib.h \
+ /software/include/bits/waitflags.h /software/include/bits/waitstatus.h \
+ /software/include/sys/types.h /software/include/sys/select.h \
+ /software/include/bits/select.h /software/include/bits/sigset.h \
+ /software/include/sys/sysmacros.h /software/include/alloca.h \
+ /software/include/bits/stdlib-float.h /software/include/string.h \
+ sq_matrix.h misc.h polynomial_regressor.h functional_regressor.h
+sq_matrix.o: sq_matrix.cc /software/include/stdc-predef.h sq_matrix.h \
+ misc.h /software/include/stdlib.h /software/include/features.h \
+ /software/include/sys/cdefs.h /software/include/bits/wordsize.h \
+ /software/include/gnu/stubs.h /software/include/gnu/stubs-64.h \
+ /software/lib/gcc/x86_64-redhat-linux/4.9.1/include/stddef.h \
+ /software/include/bits/waitflags.h /software/include/bits/waitstatus.h \
+ /software/include/endian.h /software/include/bits/endian.h \
+ /software/include/bits/byteswap.h /software/include/bits/types.h \
+ /software/include/bits/typesizes.h /software/include/bits/byteswap-16.h \
+ /software/include/xlocale.h /software/include/sys/types.h \
+ /software/include/time.h /software/include/sys/select.h \
+ /software/include/bits/select.h /software/include/bits/sigset.h \
+ /software/include/bits/time.h /software/include/sys/sysmacros.h \
+ /software/include/bits/pthreadtypes.h /software/include/alloca.h \
+ /software/include/bits/stdlib-float.h
