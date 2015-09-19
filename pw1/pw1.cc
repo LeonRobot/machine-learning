@@ -28,6 +28,7 @@ using namespace std;
 
 #include "sq_matrix.h"
 #include "polynomial_regressor.h"
+#include "hinge_regressor.h"
 
 scalar_t test_error(int degree, 
 										int nb_train_samples, 
