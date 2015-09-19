@@ -184,6 +184,15 @@ void question2() {
 }
 
 void question3() {
+	int n_hinges = 15;
+	scalar_t x_min = -3.14;
+	scalar_t x_max = 3.14;
+//	HingeRegressor regressor(n_hinges);
+//	v = regressor.value_basis_function(n_hinges, x);
+//	printf("Value basis function: $4.2f\n", v);
+  // HingeRegressor regressor(n_hinges, x_min, x_max);
+	HingeRegressor regressor(n_hinges);
+	// PolynomialRegressor regressor(n_hinges);
 }
 
 void question4() {
