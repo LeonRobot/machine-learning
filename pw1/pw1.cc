@@ -200,6 +200,7 @@ void question3() {
   for(int k = 0; k < nb_train_samples; k++) {
     x_train[k] = random_0_to_1() * 2 * M_PI - M_PI;
     y_train[k] = sin(x_train[k]);
+		// optionally add noise to y training
 		if (add_noise) y_train[k] += noise_scale_factor * random_0_to_1() + noise_shift_factor;
 		// printf("X_traink: %4.2f", x_train[k]);
   }
