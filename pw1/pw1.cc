@@ -189,6 +189,9 @@ void question3() {
 	scalar_t x_max = M_PI;
 	int nb_train_samples = 100;
 	int nb_test_values = 1000;
+	bool add_noise = true;
+	scalar_t noise_scale_factor = 0.2;  // scale from [0, 1] to [0, 0.2]
+	scalar_t noise_shift_factor = -0.1;  // shift from [0, 0.2] to [-0.1, 0.1]
 
  	scalar_t *x_train = new scalar_t[nb_train_samples];
 	scalar_t *y_train = new scalar_t[nb_train_samples];
@@ -197,6 +200,7 @@ void question3() {
   for(int k = 0; k < nb_train_samples; k++) {
     x_train[k] = random_0_to_1() * 2 * M_PI - M_PI;
     y_train[k] = sin(x_train[k]);
+		if (add_noise) y_train[k] += noise_scale_factor * random_0_to_1() + noise_shift_factor;
 		// printf("X_traink: %4.2f", x_train[k]);
   }
 	// train to out
@@ -218,16 +222,6 @@ void question3() {
     out << x << " " << sin(x) << " " << regressor.eval(x) << endl;
   }
 
-	// training samples
-	// printf("X, Y: %4.2f %4.2f\n", x_train[k], y_train[k]);
-
-//	HingeRegressor regressor(n_hinges);
-//	v = regressor.value_basis_function(n_hinges, x);
-//	printf("Value basis function: $4.2f\n", v);
-  // HingeRegressor regressor(n_hinges, x_min, x_max);
-	
-	// HingeRegressor regressor(n_hinges);
-	// PolynomialRegressor regressor(n_hinges);
 	delete[] x_train;
 	delete[] y_train;
 }
