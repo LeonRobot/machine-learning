@@ -21,19 +21,22 @@
 #include <stdio.h>
 
 HingeRegressor::HingeRegressor(int nb_hinges, scalar_t xmin, scalar_t xmax) {
-	scalar_t interval;
-	scalar_t posi = xmin;
-
- _nb_hinges	= nb_hinges;
- 	scalar_t *_hinge_positions = new scalar_t[nb_hinges];
-
- interval = (xmax - xmin) / (nb_hinges + 1);
-
- for(int h = 0; h < nb_hinges; h++){
-   posi += interval;
-	 _hinge_positions[h] = posi;
-	 printf("Hinge position %i=%4.2f\n", h, posi);
- }
+  _nb_hinges	= nb_hinges;
+	_xmin = xmin;
+	_xmax = xmax;
+	_interval = (xmax - xmin) / (nb_hinges + 1);
+//  	scalar_t *_hinge_positions = new scalar_t[nb_hinges];
+//  	// scalar_t _hinge_positions[] = new scalar_t[nb_hinges];
+// 
+//  interval = (xmax - xmin) / (nb_hinges + 1);
+// 
+//  for(int h = 0; h < nb_hinges; h++){
+//    posi += interval;
+// 	 _hinge_positions[h] = posi;
+// 	 printf("Hinge position %i=%4.2f\n", h, posi);
+// 	 // printf("Hinge position %i=%4.2f\n", h, _hinge_positions[h]);
+//  }
+//  delete[] _hinge_positions;
 }
 
 HingeRegressor::~HingeRegressor() {}
@@ -44,6 +47,15 @@ int HingeRegressor::nb_basis_functions() {
 
 scalar_t HingeRegressor::value_basis_function(int nf, scalar_t x) {
 	scalar_t r;
+ 	scalar_t *_hinge_positions = new scalar_t[_nb_hinges];
+	scalar_t posi = _xmin;
+
+ for(int h = 0; h < _nb_hinges; h++){
+   posi += _interval;
+	 _hinge_positions[h] = posi;
+	 // printf("Hinge position %i=%4.2f\n", h, posi);
+	 // printf("Hinge position %i=%4.2f\n", h, _hinge_positions[h]);
+ }
 
 	if(x < _hinge_positions[nf]){
 		r = 0;
@@ -51,15 +63,7 @@ scalar_t HingeRegressor::value_basis_function(int nf, scalar_t x) {
 	else{
 		r = x - _hinge_positions[nf];
 	}
-	printf("hinge_pos=%4.2f, nf=%i, x=%4.2f, r=%4.2f\n", _hinge_positions[nf], nf, x, r);
+	// printf("hinge_pos=%4.2f, nf=%i, x=%4.2f, r=%4.2f\n", _hinge_positions[nf], nf, x, r);
+	delete[] _hinge_positions;
 	return r;
-  // if(nf == 0) return 1.0;
-  // else if(nf == 1) return x;
-  // else {
-  //   scalar_t r;
-  //   r = value_basis_function(nf/2, x);
-  //   r *= r;
-  //   if(nf%2) r *= x;
-  //   return r;
-  // }
 }

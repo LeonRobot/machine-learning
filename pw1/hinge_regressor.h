@@ -26,6 +26,10 @@
 class HingeRegressor : public FunctionalRegressor {
 	int _nb_hinges;
 	scalar_t *_hinge_positions;
+	scalar_t _xmin;
+	scalar_t _xmax;
+	scalar_t _interval;
+
 	virtual int nb_basis_functions();
 	virtual scalar_t value_basis_function(int nf, scalar_t x);
 	public:
