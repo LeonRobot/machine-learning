@@ -41,13 +41,22 @@ int HingeRegressor::nb_basis_functions() {
 }
 
 scalar_t HingeRegressor::value_basis_function(int nf, scalar_t x) {
-  if(nf == 0) return 1.0;
-  else if(nf == 1) return x;
-  else {
-    scalar_t r;
-    r = value_basis_function(nf/2, x);
-    r *= r;
-    if(nf%2) r *= x;
-    return r;
-  }
+	scalar_t r;
+
+	if(x < _hinge_positions[nf]){
+		r = 0;
+	}
+	else{
+		r = x - _hinge_positions[nf];
+	}
+	return r;
+  // if(nf == 0) return 1.0;
+  // else if(nf == 1) return x;
+  // else {
+  //   scalar_t r;
+  //   r = value_basis_function(nf/2, x);
+  //   r *= r;
+  //   if(nf%2) r *= x;
+  //   return r;
+  // }
 }
