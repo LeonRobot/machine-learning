@@ -18,10 +18,11 @@
 ///////////////////////////////////////////////////////////////////////////
 
 #include "hinge_regressor.h"
+#include <stdio.h>
 
 HingeRegressor::HingeRegressor(int nb_hinges, scalar_t xmin, scalar_t xmax) {
 	scalar_t interval;
-	scalar_t posi = 0;
+	scalar_t posi = xmin;
 
  _nb_hinges	= nb_hinges;
  	scalar_t *_hinge_positions = new scalar_t[nb_hinges];
@@ -31,6 +32,7 @@ HingeRegressor::HingeRegressor(int nb_hinges, scalar_t xmin, scalar_t xmax) {
  for(int h = 0; h < nb_hinges; h++){
    posi += interval;
 	 _hinge_positions[h] = posi;
+	 printf("Hinge position %i=%4.2f\n", h, posi);
  }
 }
 
@@ -49,6 +51,7 @@ scalar_t HingeRegressor::value_basis_function(int nf, scalar_t x) {
 	else{
 		r = x - _hinge_positions[nf];
 	}
+	printf("hinge_pos=%4.2f, nf=%i, x=%4.2f, r=%4.2f\n", _hinge_positions[nf], nf, x, r);
 	return r;
   // if(nf == 0) return 1.0;
   // else if(nf == 1) return x;

@@ -189,7 +189,7 @@ void question3() {
 	scalar_t x_max = M_PI;
 	int nb_train_samples = 100;
 	int nb_test_values = 1000;
-	bool add_noise = true;
+	bool add_noise = false;
 	scalar_t noise_scale_factor = 0.2;  // scale from [0, 1] to [0, 0.2]
 	scalar_t noise_shift_factor = -0.1;  // shift from [0, 0.2] to [-0.1, 0.1]
 
@@ -211,6 +211,7 @@ void question3() {
   }
 
 	// fit
+	printf("Fitting %d hinges: xmin=%4.2f, xmax=%4.2f\n", n_hinges, x_min, x_max);
 	HingeRegressor regressor(n_hinges, x_min, x_max);
   regressor.fit(nb_train_samples, x_train, y_train);
 
@@ -220,7 +221,8 @@ void question3() {
 		// printf("x: %4.2f s: %i s/nb: %4.2f", x, s, scalar_t(x) / scalar_t(nb_test_values);
 		// printf("x: %4.2f s: %i s/nb: %4.2f\n", x, s, scalar_t(s) / scalar_t(nb_test_values));
     scalar_t x = scalar_t(s) / scalar_t(nb_test_values) * 2 * M_PI - M_PI;
-    out << x << " " << sin(x) << " " << regressor.eval(x) << endl;
+    // out << x << " " << sin(x) << " " << regressor.eval(x) << endl;
+		out << x << " " << regressor.eval(x) << endl;
   }
 
 	delete[] x_train;
@@ -228,6 +230,40 @@ void question3() {
 }
 
 void question4() {
+  int degree = 4;
+  int nb_train_samples = 100;
+  int nb_test_values = 1000;
+	scalar_t lambda = 2;
+
+  scalar_t *x_train = new scalar_t[nb_train_samples];
+  scalar_t *y_train = new scalar_t[nb_train_samples];
+
+  for(int k = 0; k < nb_train_samples; k++) {
+    x_train[k] = random_0_to_1() * 2 * M_PI - M_PI;
+    y_train[k] = sin(x_train[k]);
+		// printf("X_traink: %4.2f", x_train[k]);
+  }
+
+  PolynomialRegressor regressor(degree);
+  regressor.regularized_fit(lambda, nb_train_samples, x_train, y_train);
+
+  ofstream out_train("/tmp/question4_train.dat");
+
+  for(int s = 0; s < nb_train_samples; s++) {
+    out_train << x_train[s] << " " << y_train[s] << endl;
+  }
+
+  ofstream out("/tmp/question4.dat");
+
+  for(int s = 0; s < nb_test_values; s++) {
+		// printf("x: %4.2f s: %i s/nb: %4.2f", x, s, scalar_t(x) / scalar_t(nb_test_values);
+		// printf("x: %4.2f s: %i s/nb: %4.2f\n", x, s, scalar_t(s) / scalar_t(nb_test_values));
+    scalar_t x = scalar_t(s) / scalar_t(nb_test_values) * 2 * M_PI - M_PI;
+    out << x << " " << regressor.eval(x) << endl;
+  }
+
+  delete[] x_train;
+  delete[] y_train;
 }
 
 int main(int argc, char **argv) {

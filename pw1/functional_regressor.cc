@@ -115,18 +115,18 @@ void FunctionalRegressor::fit(int nb_samples, scalar_t *x, scalar_t *y) {
       for(int n = 0; n < nb_samples; n++) {
         s += value_basis_function(m, x[n]) * value_basis_function(k, x[n]);
 
-				//// debugging
-				//printf("m=%i, k=%i, s=%i, xn=%4.2f\n", m, k, n, x[n]);
-				//printf("Basis func m=%4.2f\n", value_basis_function(m, x[n]));
-				//printf("Basis func k=%4.2f\n", value_basis_function(k, x[n]));
-				//printf("f(m) * f(k) = %4.2f\n", value_basis_function(m, x[n]) * value_basis_function(k, x[n]));
-				//printf("s=%4.2f\n", s);
-				//while (1)
-				//{
-				//	if ('n' == getchar())
-				//	break;
-				//}
-				//// end debugging
+				// debugging
+				printf("m=%i, k=%i, s=%i, xn=%4.2f\n", m, k, n, x[n]);
+				printf("Basis func m=%4.2f\n", value_basis_function(m, x[n]));
+				printf("Basis func k=%4.2f\n", value_basis_function(k, x[n]));
+				printf("f(m) * f(k) = %4.2f\n", value_basis_function(m, x[n]) * value_basis_function(k, x[n]));
+				printf("s=%4.2f\n", s);
+				while (1)
+				{
+					if ('n' == getchar())
+					break;
+				}
+				// end debugging
       }
       A.coeff[m][k] = s;
     }
@@ -144,6 +144,7 @@ void FunctionalRegressor::fit(int nb_samples, scalar_t *x, scalar_t *y) {
     for(int m = 0; m < d; m++) {
       s += A.coeff[m][k] * V[m];
     }
+		// printf("Coef %d=%4.2f\n", k, s);
     _coeffs[k] = s;
   }
 
