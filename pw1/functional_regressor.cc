@@ -38,6 +38,66 @@ scalar_t FunctionalRegressor::eval(scalar_t x) {
   return s;
 }
 
+void FunctionalRegressor::regularized_fit(scalar_t lambda, 
+		int nb_samples, 
+		scalar_t *x, 
+		scalar_t *y) {
+  delete[] _coeffs;
+  _coeffs = new scalar_t[nb_basis_functions()];
+
+  const int d = nb_basis_functions();
+
+  SqMatrix A(d);
+
+  scalar_t *V = new scalar_t[d];
+
+  scalar_t s;
+  for(int m = 0; m < d; m++) {
+    for(int k = 0; k < d; k++) {
+      s = 0;
+      for(int n = 0; n < nb_samples; n++) {
+        s += value_basis_function(m, x[n]) * value_basis_function(k, x[n]);
+
+				//// debugging
+				//printf("m=%i, k=%i, s=%i, xn=%4.2f\n", m, k, n, x[n]);
+				//printf("Basis func m=%4.2f\n", value_basis_function(m, x[n]));
+				//printf("Basis func k=%4.2f\n", value_basis_function(k, x[n]));
+				//printf("f(m) * f(k) = %4.2f\n", value_basis_function(m, x[n]) * value_basis_function(k, x[n]));
+				//printf("s=%4.2f\n", s);
+				//while (1)
+				//{
+				//	if ('n' == getchar())
+				//	break;
+				//}
+				//// end debugging
+      }
+      A.coeff[m][k] = s;
+			// add regularization if m == k (all diagonal elements)
+			// https://en.wikipedia.org/wiki/Tikhonov_regularization
+			if(m == k) A.coeff[m][k] += 2 * lambda;
+			
+    }
+    s = 0;
+    for(int n = 0; n < nb_samples; n++) {
+      s += value_basis_function(m, x[n]) * y[n];
+    }
+    V[m] = s;
+  }
+
+  A.invert();
+
+  for(int k = 0; k < d; k++) {
+    s = 0;
+    for(int m = 0; m < d; m++) {
+      s += A.coeff[m][k] * V[m];
+    }
+    _coeffs[k] = s;
+  }
+
+  delete[] V;
+
+}
+
 void FunctionalRegressor::fit(int nb_samples, scalar_t *x, scalar_t *y) {
   delete[] _coeffs;
   _coeffs = new scalar_t[nb_basis_functions()];

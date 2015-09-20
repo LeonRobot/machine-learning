@@ -33,6 +33,7 @@ public:
 
   scalar_t eval(scalar_t x);
   void fit(int nb_samples, scalar_t *x, scalar_t *y);
+	void regularized_fit(scalar_t lambda, int nb_samples, scalar_t *x, scalar_t *y);
 };
 
 #endif
