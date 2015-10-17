@@ -8,3 +8,8 @@ function [Y]=PCAProjection(Z,meanX,P)
 % Output:   
 %    Y     : NxM matrix containing the components in PCA subspace for all data points of Z
 % 
+
+% X_centered = bsxfun(@minus, X, meanX);
+Z_centered = bsxfun(@minus, Z, meanX);
+
+Y = Z_centered * P;

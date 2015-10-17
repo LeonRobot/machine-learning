@@ -63,7 +63,7 @@ Process=1;
 if Process==1 
   Mdim=10;
   %% PCA decomposition
-  [Lambda,U,meanX]=MyPCA(imagesOneDigit);
+  [Lambda,U,meanX]=MyPCA(imagesOneDigit);[Lambda,U,meanX]=MyPCA(imagesOneDigit);
 
   %% Plot eigenvalues, including normalized cumulative
   plot_eigenvalues(Lambda);

@@ -12,6 +12,6 @@ meanX = mean(X, 2);  % avg value for each sample
 
 X_centered = bsxfun(@minus, X, meanX);
 
-[U, S, ~] = svd(X_centered);
+[~, S, U] = svd(X_centered);
 
 Lambda = diag(S);

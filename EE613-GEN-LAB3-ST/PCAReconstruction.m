@@ -8,3 +8,6 @@ function [Ztilde]=PCAReconstruction(Y,meanX,P)
 % Output:   
 %    Ztilde     : NxD matrix containing the constructed vectors 
 % 
+
+Z_temp = Y * P';
+Ztilde = bsxfun(@plus, Z_temp, meanX);
