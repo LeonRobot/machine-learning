@@ -14,7 +14,7 @@ pimap=para.priormixcoef;
 moymap=para.priorm';
 sigmaMAP=para.V/(para.d-para.Dimp-1);
 
-N = size(X, 1);
+[N, d] = size(X);
 
 % moymap(1,:)
 % sigmaMAP(:,:,1)
@@ -25,6 +25,7 @@ for i=1:niter
     %%E-step equivalent to classical EM
     % p(Z|X, theta^{old})
     % sum up p_z for each component given X
+    
     p_z_sum = zeros(size(X, 1), 1);
     for k=1:K
 %        sigmaMAP(:,:,k)
@@ -47,24 +48,38 @@ for i=1:niter
         % update mu
         N_k = sum(p_z(:, :, k));
         weighted_sum_x = sum(bsxfun(@times, p_z(:, :, k), X));
-        moy_k = ((1/N_k) * (weighted_sum_x))';
+        moy_k = (1/N_k) * weighted_sum_x;
         % incorporate prior
-        p_z(:,:,k)
-        weighted_sum_x
-        para.priorm(:,k)
-        moy_k
-        moymap(k,:) = (para.tau * para.priorm(:,k) + N_k * moy_k) / (para.tau + N_k);
+%         p_z(:,:,k)
+%         weighted_sum_x
+%         para.priorm(:,k)
+%         moy_k
+        moymap(k,:) = (para.tau * para.priorm(:,k) + N_k * moy_k') / (para.tau + N_k);
         
+%         N_k
+%         weighted_sum_x
+%         moy_k
+%         moymap(k,:)
+%         waitforbuttonpress;
         % update sigma
         weighted_sum_sigma_x = 0;
         for n=1:N
-            covar = (X(n,:) - moy(k, :))' * (X(n,:) - moy(k, :));
+%             moy_k
+%             X(n,:)
+            covar = (X(n,:) - moy_k)' * (X(n,:) - moy_k);
             weighted_sum_sigma_x = weighted_sum_sigma_x + bsxfun(@times, p_z(n, :, k), covar);
         end
         Sigma_k = 1/N_k * weighted_sum_sigma_x;
 %         Sigma_k
 %         sigmaMAP(:,:,k)
-        sigmaMAP(:,:,k) = (para.V(:,:,k) + N * Sigma_k + (para.tau * N)/(para.tau + N) * (para.priorm - moy_k) * (para.priorm - moyk)') / (V - d + N);
+        para.V(:,:,k)
+        Sigma_k
+        para.tau
+        para.priorm
+        moy_k
+        d
+        N
+        sigmaMAP(:,:,k) = (para.V(:,:,k) + N * Sigma_k + (para.tau * N)/(para.tau + N) * (para.priorm(:,k) - moy_k') * (para.priorm(:,k) - moy_k')') / (para.d - d + N);
 %         sigmaMAP(:,:,k)
 %         input(prompt)
         % update pi
@@ -72,8 +87,10 @@ for i=1:niter
         counts_sum = 0;
         for j=1:K
             N_kp = sum(p_z(:, :, j));
-            counts_sum = counts_sum (para.priormixcoef(k) + N_kp);
+            counts_sum = counts_sum + (para.priormixcoef(k) + N_kp);
         end
         pimap(k) = (para.priormixcoef(k) + N_k - 1) / (counts_sum - K);
     end
 end
+
+moymap = moymap'

@@ -21,7 +21,7 @@ z2=data.z2;
 %% --------------------------------------------------
 %% Select a trainign option
 
-option=3;
+option=2;
 switch(option)
     case 1
         disp('option 1: learn with the training data')
@@ -73,22 +73,24 @@ switch(option)
         % dirichlet prior
         % para.priormixcoef= % alpha coefficients for the Dirichlet prior on the pi coefficient 
         % (to be set)
-        para.priormixcoef = (1 / para.K) .* ones(3, 1);
+%         para.priormixcoef = (1 / para.K) .* ones(3, 1);
+        para.priormixcoef = [0.3060; 0.2694; 0.4246];
 
         % normal wishart prior
 
         % parameters for the mean
         % to give on average (for each component) the same weight to the prior and to the observation
         para.tau=length(x1)/para.K; % tau parameter for the normal prior on the mean
-        para.priorm= [-24.5, 8, 4.7; 4.7, 3.2, -20];  % from estimates of option2
+        para.priorm= [-26.3560 14.0723 0.9330; 5.7972 4.8853 -11.3125];  % from estimates of option2
 
         % parameters for the variance
         para.d=length(x1)/para.K; % nu parameter of the Inverse Wishart distribution
         % para.V=% param of the Inverse Wishart distribution 
-        para.V = zeros(2,2,para.K);
-        para.V(:,:,1) = [93, -2; -2, 187.0555];
-        para.V(:,:,2) = [100 14; 14 181];
-        para.V(:,:,3) = [160 6; 6 136];
+        sigma0 = zeros(2,2,para.K);
+        sigma0(:,:,1) = [83.3 18.5056; 18.5056 128.2860];
+        sigma0(:,:,2) = [104.3769 2.6030; 2.6030 195.5050];
+        sigma0(:,:,3) = [139.1009 -29.2664; -29.2664 137.2115];
+        para.V = sigma0 * (para.d - para.Dimp - 1);
         % to be set recall that V = sigma0 * (d-Dimp -1) with sigma0 the expectation of the prior covariance
         %
 

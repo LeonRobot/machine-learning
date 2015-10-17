@@ -33,6 +33,9 @@ for i=1:niter
     for k=1:K
        p_z(:, :, k) = pi(k) * mvnpdf(X, moy(k, :), Sigma(:, :, k)) ./ p_z_sum;
     end
+%     p_z_sum
+%     p_z
+%     waitforbuttonpress;
     
     %%Mstep update the parameters pi, mu and sigma
     for k=1:K
