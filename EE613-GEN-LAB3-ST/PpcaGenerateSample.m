@@ -5,6 +5,7 @@ function [Samples] = PpcaGenerateSample(Muppca,Wppca,Sigma2ppca,n_samples)
 % all other parameters obtained from MyPPCA
 
 % Draw isotropic gaussian latent variables
+
 M = size(Wppca,2);
 MU = zeros(1,M);
 SIGMA = eye(M);
@@ -19,7 +20,8 @@ Depsilon = mvnrnd(zeros(1,D),Sigma2ppca*eye(D)); %noise
 Samples = zeros(n_samples,D);
 
 for i=1:n_samples
-	Samples(i,:) = Muppca+ (Wppca*(zhat(i,:))')' + Depsilon;
+    Samples(i,:) = Muppca + (Wppca*(zhat(i,:))')' + Depsilon;
+	% Samples(i,:) = Muppca(1,:) + (Wppca(i,:)*(zhat(i,:))')' + Depsilon;
 end
 
 end
