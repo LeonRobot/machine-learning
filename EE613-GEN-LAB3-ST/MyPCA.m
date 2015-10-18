@@ -8,7 +8,7 @@ function [Lambda,U,meanX]=MyPCA(X)
 %    meanX  : average value of the datas in X (row vector of size D)
 % 
 
-meanX = mean(X, 2);  % avg value for each sample
+meanX = mean(X, 1);  % avg value for each sample
 
 X_centered = bsxfun(@minus, X, meanX);
 
