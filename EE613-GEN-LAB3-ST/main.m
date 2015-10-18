@@ -18,7 +18,7 @@ if DataOption==1
   AllImages=images; % each row is an 16 by 16 image stacked in a 1x256 line vector
   labels=usps.y;
   DimD=16;
-  SelectedDigit=3;
+  SelectedDigit=1;
 
   %% Selecting only a subset of the images
   imagesIndex=find(labels==SelectedDigit); 
@@ -63,6 +63,7 @@ Process=1;
 if Process==1 
   Mdim=10;
   %% PCA decomposition
+  % imagesOneDigit = AllImages;
   [Lambda,U,meanX]=MyPCA(imagesOneDigit);[Lambda,U,meanX]=MyPCA(imagesOneDigit);
 
   %% Plot eigenvalues, including normalized cumulative
@@ -70,6 +71,8 @@ if Process==1
 
   %% Projection matrix comprising only the Mdim first eigenvectors
   P=U(:,1:Mdim);
+%   P(:,1) = U(:,2);
+%   P(:,2) = U(:,1);
 
   % Recover the coordinates of each vector in the lower manifold of dimension Mdim.
   Y=PCAProjection(imagesOneDigit,meanX,P);
@@ -84,6 +87,7 @@ if Process==1
   DisplayListImage(todisplay,DimD,DimD,2,Ntodisplay);
   
 
+  
 end
 
 %% Probabilistic PCA code
@@ -91,7 +95,7 @@ end
 showPPCA = 1;
 
 if showPPCA == 1
-  Mdim=10;
+  Mdim=150;
   % Extract Projection vectors + eigenvalues
   [Muppca,Wppca,Sigma2ppca]=MyPPCA(imagesOneDigit,Mdim);
 
