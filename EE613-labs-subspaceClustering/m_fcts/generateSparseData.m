@@ -9,39 +9,45 @@ function [ X ] = generateSparseData(N, D, d, K, p)
 % init center of clusters: uniformally distributed within a hypercube of
 % unit size: assume independent
 rng(0);
-principal_length = 1/K;
+principal_length = 1/K * ones(1, d);
 noise_scale = 0.01;
 
 centers = rand(K, D);
 % directions are random
-principal_dirs = rand(K, D);
-% normalize directions
-dir_lengths = sqrt(sum(principal_dirs.^2, 2));
-principal_dirs = bsxfun(@times, 1./dir_lengths, principal_dirs);
-
-% lengths are 1/K for visualization purposes
-principal_dirs = principal_length .* principal_dirs;
-
-sigmas = zeros(D, D, K);
+dirs_all = zeros(D, D, K);
 for k=1:K
-    sig_temp = sigmas(:,:,k);
-    sig_temp(logical(eye(size(sig_temp)))) = principal_length;
-    sigmas(:,:,k) = sig_temp;
-    sigmas(D, D, k) = 0;
+    % begin with principal dir
+    principal_dirs = rand(D, 1);
+    % normalize directions
+    principal_dirs = principal_dirs / norm(principal_dirs);
+    dirs_all(:, 1, k) = principal_dirs;
+    dirs_all(:, 2:D, k) = null(principal_dirs');
 end
 
-X = zeros(N, D);
+% take first d eigenvectors
+dirs_proj = dirs_all(:, 1:d, :);
+
+% multiply by length
+for k=1:K
+    dirs_proj(:,:,k) = bsxfun(@times, principal_length, dirs_proj(:, :, k));
+end
+
+colors = zeros(N, 1);
 for n=1:N
     % draw a cluster, weighted by p
     k = randsample(K, 1, true, p);
     % generate a point
     muk = centers(k, :);
-    sigmak = sigmas(:,:,k);
-    x = mvnrnd(muk,sigmak);
-    % add noise
-    noise = (noise_scale * randn(1, D)) + x;
-    X(n,:) = x;
+    x = mvnrnd(zeros(1, 2), eye(d));
+    % project 2d to 3d
+    x_proj = dirs_proj(:,:,k) * x';
+    x_proj = x_proj';
+    % add noise and mean
+    x_proj = x_proj + muk + (noise_scale * randn(1, D));
+    X(n,:) = x_proj;
+    colors(n, 1) = k;
 end
+X = [X, colors];
 
 end
 

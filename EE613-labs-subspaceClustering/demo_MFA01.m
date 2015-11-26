@@ -48,6 +48,7 @@ end
 
 %% Parameters estimation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+size(Data)
 model = init_GMM_kmeans(Data, model);
 model = EM_MFA(Data, model); 
 
