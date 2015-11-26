@@ -2,7 +2,7 @@ clear all;
 close all;
 
 
-DataOption=1;
+DataOption=2;
 
 if DataOption==1
   usps=load('usps.mat'); 
@@ -48,17 +48,49 @@ if DataOption==2
    figure;
    imshow(image/255) % displaying and normalizing because imshow assumes values are between 0 and 1
    title('example of a face');
+   
+  
+   [Lambda,U,meanX]=MyPCA(images);
 
+  %% Plot eigenvalues, including normalized cumulative
+  plot_eigenvalues(Lambda);
+  
+  % display mean face
+  meanX_reshape = reshape(meanX, DimD, DimD);
+  figure;
+  imshow(meanX_reshape/255) % displaying and normalizing because imshow assumes values are between 0 and 1
+  title('Mean face');
+  
+  % display first 9 eigenfaces
+  
+  for e=1:9
+    P=U(:,e);
+  % Recover the coordinates of each vector in the lower manifold of dimension Mdim.
+  Y=PCAProjection(images,meanX,P);
+
+  % Reconstruct input images 
+  ReconstructedImages=PCAReconstruction(Y,meanX,P);
+
+  % subtract mean
+  reconst_nomean = bsxfun(@minus, ReconstructedImages, meanX);
+  reconst_nomean_sqr = reshape(reconst_nomean(1,:), DimD, DimD);
+
+  figure;
+  imshow(reconst_nomean_sqr) % no normalize
+  title(sprintf('Eigenface: %i', e));
+  waitforbuttonpress;
+  end
+  
   %% Load the same faces
   data= load('SameFace.mat');
   SameFaceImages=data.images;
-
+  
 end
 
 %Notice : the images are stacked in row in the above datasets
 
 %%%%% Process Digit once the functions have been defined
-Process=1;
+Process=0;
 
 if Process==1 
   Mdim=10;
@@ -92,7 +124,7 @@ end
 
 %% Probabilistic PCA code
 
-showPPCA = 1;
+showPPCA = 0;
 
 if showPPCA == 1
   Mdim=150;
@@ -112,7 +144,7 @@ if showPPCA == 1
   sizeSquareCor=6;
 
 
-  PPCAWithMissingValues=0;
+  PPCAWithMissingValues=1;
 
   if PPCAWithMissingValues==1
 
