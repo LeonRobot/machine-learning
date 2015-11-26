@@ -23,8 +23,10 @@ addpath('./m_fcts/');
 
 %% Parameters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-model.nbStates = 4; %Number of activation functions (i.e., number of states in the GMM)
-model.nbVarIn = 2; %Degree of the polynomial (based on time input)
+% model.nbStates = 4; %Number of activation functions (i.e., number of states in the GMM)
+model.nbStates = 2; %Number of activation functions (i.e., number of states in the GMM)
+% model.nbVarIn = 2; %Degree of the polynomial (based on time input)
+model.nbVarIn = 1; %Degree of the polynomial (based on time input)
 model.nbVarOut = 2; %Number of motion variables [x1,x2] 
 nbData = 200; %Length of a trajectory
 nbSamples = 5; %Number of demonstrations
@@ -34,7 +36,8 @@ tIn = linspace(0,1,nbData); %Input data for LWR
 %% Load handwriting data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 demos=[];
-load('data/2Dletters/G.mat');
+% load('data/2Dletters/G.mat');
+load('data/1.mat');
 Data=[];
 for n=1:nbSamples
 	s(n).Data = spline(1:size(demos{n}.pos,2), demos{n}.pos, linspace(1,size(demos{n}.pos,2),nbData)); %Resampling
