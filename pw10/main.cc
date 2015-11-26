@@ -29,6 +29,7 @@ using namespace std;
 #include "vignette_set.h"
 #include "decision_tree.h"
 #include "pixel_question_set.h"
+#include "min_question_set.h"
 
 #define SMALL_BUFFER_SIZE 1024
 
@@ -150,8 +151,40 @@ void computation_question1(VignetteSet *train_image_set,
 
 void computation_question2(VignetteSet *train_image_set,
                            VignetteSet *test_image_set) {
-  cerr << "Not implemented!" << endl;
-  exit(1);
+
+  MinQuestionSet qs(train_image_set->width(),
+                    train_image_set->height());
+
+  ofstream out_train("train_error.dat");
+  ofstream out_test("test_error.dat");
+  scalar_t train_error, test_error;
+
+  for(int d = 1; d < 20; d++) {
+    cout << "Depth " << d << " ... "; cout.flush();
+    DecisionTree dt(&qs,
+                    d,  // Depth max
+                    1, // Number of samples min to split
+                    100); // How many question sampled per node
+
+    dt.train(train_image_set);
+
+    train_error =
+      scalar_t(dt.nb_errors(train_image_set)) /
+      scalar_t(train_image_set->nb_vignettes());
+
+    test_error =
+      scalar_t(dt.nb_errors(test_image_set)) /
+      scalar_t(test_image_set->nb_vignettes());
+
+    out_train << d << " " << train_error << endl;
+    out_test << d << " " << test_error << endl;
+
+    cout << "Train_error/test_error ("
+         << train_error * 100
+         << "% / "
+         << test_error * 100
+         << "%)." << endl;
+  }
 }
 
 void computation_question3(VignetteSet *train_image_set,
